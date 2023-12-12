@@ -10,7 +10,7 @@
 ```bash
 sudo apt-get update
 sudo apt-get install wkhtmltopdf
-pip install ansi2html imgkit boto3 fastapi uvicorn python-dotenv yagmail
+pip install ansi2html imgkit boto3 fastapi uvicorn python-dotenv yagmail markdown
 
 git clone git@github.com:liuhetian/ansi2img.git
 vi .secrets  # 写密码
