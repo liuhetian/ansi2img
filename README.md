@@ -29,9 +29,10 @@ def send_exception(ansi_str: str):
     requests.post(f'{url}/sendmail', json=data)
 logger.add(send_exception, colorize=True)
 
-# your code
+
 @logger.catch
 def main():
+    # your code, auto delivery exception to your mail
     a, b = 1, 0
     a / b
 
