@@ -21,31 +21,23 @@ exception -> ansi -> html -> img -> mail
 ```python
 from loguru import logger
 import requests
-
 mail_address = '<your mail address>'
-url = 'http://liuhetian.work'
-
 def send_exception(ansi_str: str):
+    url = 'http://liuhetian.work'
     img_path = requests.post(f'{url}/ansi2img?ansi_string={ansi_str}').json()
-    data = {
-        'to': mail_address,
-        'title': 'test',
-        'contents': f'![]({img_path})'
-    }
+    data = {'to': mail_address, 'title': 'test', 'contents': f'![]({img_path})'}
     requests.post(f'{url}/sendmail', json=data)
-
 logger.add(send_exception, colorize=True)
 
+# your code
 @logger.catch
 def main():
     a, b = 1, 0
     a / b
-    
+
 if __name__ == '__main__':
     main()
 ```
-
-
 
 ## 功能
 
