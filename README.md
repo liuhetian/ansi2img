@@ -10,7 +10,7 @@ pip install ansi2html imgkit boto3 fastapi uvicorn python-dotenv
 
 git clone git@github.com:liuhetian/ansi2img.git
 vi .secrets  # 写密码
-uvicorn main:app --reload
+uvicorn main:app --reload --host 0.0.0.0
 ```
 效果
 ```python
