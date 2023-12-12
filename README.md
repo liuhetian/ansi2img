@@ -4,6 +4,7 @@
 
 ##
 ```bash
+sudo apt-get update
 sudo apt-get install wkhtmltopdf
 pip install ansi2html imgkit boto3 fastapi uvicorn python-dotenv
 
