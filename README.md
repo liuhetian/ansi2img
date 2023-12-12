@@ -14,30 +14,38 @@ uvicorn main:app --reload
 ```
 效果
 ```python
-
 import requests
 a = '''
-[32m2023-12-12 17:03:19.484[0m | [33mRETRY   [0m | [36mtest.testa[0m:[36mwrapper[0m:[36m37[0m - [33mAn error has occurred[0m
-[33m[1mTraceback (most recent call last):[0m
+ \x1b[32m2023-12-12 17:03:19.484 \x1b[0m |  \x1b[33mRETRY    \x1b[0m |  \x1b[36mtest.testa \x1b[0m: \x1b[36mwrapper \x1b[0m: \x1b[36m37 \x1b[0m -  \x1b[33mAn error has occurred \x1b[0m
+ \x1b[33m \x1b[1mTraceback (most recent call last): \x1b[0m
 
-  File "[32m/home/ubuntu/main/重试并保存错误/[0m[32m[1mtest.py[0m", line [33m14[0m, in [35m<module>[0m
-    [1mf[0m[1m([0m[1m)[0m
-    [36m└ [0m[36m[1m<function f at 0x7f49c028e200>[0m
+  File " \x1b[32m/home/ubuntu/main/重试并保存错误/ \x1b[0m \x1b[32m \x1b[1mtest.py \x1b[0m", line  \x1b[33m14 \x1b[0m, in  \x1b[35m<module> \x1b[0m
+     \x1b[1mf \x1b[0m \x1b[1m( \x1b[0m \x1b[1m) \x1b[0m
+     \x1b[36m└  \x1b[0m \x1b[36m \x1b[1m<function f at 0x7f49c028e200> \x1b[0m
 
-> File "[32m/home/ubuntu/main/重试并保存错误/test/[0m[32m[1mtesta.py[0m", line [33m29[0m, in [35mwrapper[0m
-    [35m[1mreturn[0m [1mfunc[0m[1m([0m[35m[1m*[0m[1margs[0m[1m,[0m [35m[1m**[0m[1mkwargs[0m[1m)[0m
-    [36m       │     │       └ [0m[36m[1m{}[0m
-    [36m       │     └ [0m[36m[1m()[0m
-    [36m       └ [0m[36m[1m<function f at 0x7f49c2a58ea0>[0m
+> File " \x1b[32m/home/ubuntu/main/重试并保存错误/test/ \x1b[0m \x1b[32m \x1b[1mtesta.py \x1b[0m", line  \x1b[33m29 \x1b[0m, in  \x1b[35mwrapper \x1b[0m
+     \x1b[35m \x1b[1mreturn \x1b[0m  \x1b[1mfunc \x1b[0m \x1b[1m( \x1b[0m \x1b[35m \x1b[1m* \x1b[0m \x1b[1margs \x1b[0m \x1b[1m, \x1b[0m  \x1b[35m \x1b[1m** \x1b[0m \x1b[1mkwargs \x1b[0m \x1b[1m) \x1b[0m
+     \x1b[36m       │     │       └  \x1b[0m \x1b[36m \x1b[1m{} \x1b[0m
+     \x1b[36m       │     └  \x1b[0m \x1b[36m \x1b[1m() \x1b[0m
+     \x1b[36m       └  \x1b[0m \x1b[36m \x1b[1m<function f at 0x7f49c2a58ea0> \x1b[0m
 
-  File "[32m/home/ubuntu/main/重试并保存错误/[0m[32m[1mtest.py[0m", line [33m12[0m, in [35mf[0m
-    [35m[1mreturn[0m [34m[1m5[0m [35m[1m+[0m [1ma[0m [35m[1m/[0m [1mb[0m
-    [36m           │   └ [0m[36m[1m0[0m
-    [36m           └ [0m[36m[1m1[0m
+  File " \x1b[32m/home/ubuntu/main/重试并保存错误/ \x1b[0m \x1b[32m \x1b[1mtest.py \x1b[0m", line  \x1b[33m12 \x1b[0m, in  \x1b[35mf \x1b[0m
+     \x1b[35m \x1b[1mreturn \x1b[0m  \x1b[34m \x1b[1m5 \x1b[0m  \x1b[35m \x1b[1m+ \x1b[0m  \x1b[1ma \x1b[0m  \x1b[35m \x1b[1m/ \x1b[0m  \x1b[1mb \x1b[0m
+     \x1b[36m           │   └  \x1b[0m \x1b[36m \x1b[1m0 \x1b[0m
+     \x1b[36m           └  \x1b[0m \x1b[36m \x1b[1m1 \x1b[0m
 
-[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+ \x1b[31m \x1b[1mZeroDivisionError \x1b[0m: \x1b[1m division by zero \x1b[0m
 '''
+
+
 url = f'http://43.142.41.210:8000/ansi2img?ansi_string={a}'
-response = requests.post(url)
+requests.post(url).json()
+```
+
+
+```python
+frim loguru import logger
+def f(ansi_str):
+
 
 ```
