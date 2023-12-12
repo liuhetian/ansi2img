@@ -1,12 +1,16 @@
-# ansi2img
+## 
+
+功能1. ansi2img
 
 把报错转为图像地址，可以继续发送给钉钉(微信 QQ没试过)
+
+功能2. 发送邮件
 
 ##
 ```bash
 sudo apt-get update
 sudo apt-get install wkhtmltopdf
-pip install ansi2html imgkit boto3 fastapi uvicorn python-dotenv
+pip install ansi2html imgkit boto3 fastapi uvicorn python-dotenv yagmail
 
 git clone git@github.com:liuhetian/ansi2img.git
 vi .secrets  # 写密码
