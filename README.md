@@ -10,7 +10,7 @@ from loguru import logger
 import requests
 
 mail_address = '<your mail address>'
-url = 'http://43.142.41.210:8000'
+url = 'http://liuhetian.work'
 
 def send_exception(ansi_str: str):
     img_path = requests.post(f'{url}/ansi2img?ansi_string={ansi_str}').json()
@@ -83,14 +83,14 @@ a = '''
  \x1b[31m \x1b[1mZeroDivisionError \x1b[0m: \x1b[1m division by zero \x1b[0m
 '''
 
-url = f'http://43.142.41.210:8000/ansi2img?ansi_string={a}'
+url = f'http://liuhetian.work/ansi2img?ansi_string={a}'
 requests.post(url).json()
 ```
 
 ### 发送邮件效果
 
 ```python
-url = f'http://43.142.41.210:8000/sendmail'
+url = f'http://liuhetian.work/sendmail'
 data = {
     'to': '<your mail address>',
     'title': 'test',
