@@ -6,6 +6,8 @@ from zoneinfo import ZoneInfo
 from io import BytesIO
 from dotenv import load_dotenv
 
+import yagmail
+
 load_dotenv(dotenv_path='.secrets')
 access_key = os.getenv('ACCESS_KEY')
 secret_key = os.getenv('SECRET_KEY')
@@ -30,3 +32,32 @@ def ansi2img(ansi_string: str):
     )
     s3_resource.Object(bucket, filename).put(Body=buffer.getvalue())
     return f'{endpoint}/{bucket}/{filename}'
+
+
+import markdown
+email_address = os.getenv('EMAIL_ADDRESS')
+email_password = os.getenv('EMAIL_PASSWORD')
+
+class Mail(BaseModel):
+    to: str
+    title: str
+    markdown: bool = True
+    contents: str
+
+@app.post('/sendmail')
+def sendmail(mail: Mail):
+    yag = yagmail.SMTP(
+        email_address, 
+        email_password, 
+        host='smtp.qq.com', 
+        timeout=30
+    )
+    if mail.markdown:
+        mail.contents = markdown.markdown(mail.contents)
+    return yag.send(
+        to=mail.to,
+        subject=mail.title,
+        contents=mail.contents
+    )
+
+
