@@ -1,9 +1,22 @@
 # ansi2img
 
+项目的目的是捕获python脚本中出现的异常并及时通知自己，
+
+异常记录到日志会不够及时，
+
+如果直接发送到自己手机就不够详细，
+
+所以本项目将捕获的异常截屏再发送到邮箱，既能保证异常消息可读，也能保证消息及时收到。
+
+并且将截图和发送邮件拆分成两个接口可以独立使用。
+
+实现途径：
+
 exception -> ansi -> html -> img -> mail
+
 捕获异常，然后转为图片，最后通过邮件发送给自己
 
-![](result.png)
+![截图效果](result.png)
 
 ```python
 from loguru import logger
@@ -58,6 +71,8 @@ uvicorn main:app --reload --host 0.0.0.0
 ```
 
 ### 生成图像效果
+
+![截图效果](result.png)
 
 ```python
 import requests
