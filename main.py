@@ -35,6 +35,8 @@ def ansi2img(ansi_string: str):
 
 
 import markdown
+from pydantic import BaseModel
+
 email_address = os.getenv('EMAIL_ADDRESS')
 email_password = os.getenv('EMAIL_PASSWORD')
 
