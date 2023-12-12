@@ -1,12 +1,52 @@
-## 
+# ansi2img
+
+exception -> ansi -> html -> img -> mail
+捕获异常，然后转为图片，最后通过邮件发送给自己
+
+![](result.png)
+
+```python
+from loguru import logger
+import requests
+
+mail_address = '<your mail address>'
+url = 'http://43.142.41.210:8000'
+
+def send_exception(ansi_str: str):
+    img_path = requests.post(f'{url}/ansi2img?ansi_string={ansi_str}').json()
+    data = {
+        'to': mail_address,
+        'title': 'test',
+        'contents': f'![]({img_path})'
+    }
+    requests.post(f'{url}/sendmail', json=data)
+
+logger.add(send_exception, colorize=True)
+
+@logger.catch
+def main():
+    a, b = 1, 0
+    a / b
+    
+if __name__ == '__main__':
+    main()
+```
+
+
+
+## 功能
+
+有两个独立的功能：
 
 功能1. ansi2img
-
 把报错转为图像地址，可以继续发送给钉钉(微信 QQ没试过)
 
 功能2. 发送邮件
 
-##
+
+## 部署
+需要实例存储，有点麻烦
+
 ```bash
 sudo apt-get update
 sudo apt-get install wkhtmltopdf
@@ -16,7 +56,9 @@ git clone git@github.com:liuhetian/ansi2img.git
 vi .secrets  # 写密码
 uvicorn main:app --reload --host 0.0.0.0
 ```
-效果
+
+### 生成图像效果
+
 ```python
 import requests
 a = '''
@@ -41,15 +83,18 @@ a = '''
  \x1b[31m \x1b[1mZeroDivisionError \x1b[0m: \x1b[1m division by zero \x1b[0m
 '''
 
-
 url = f'http://43.142.41.210:8000/ansi2img?ansi_string={a}'
 requests.post(url).json()
 ```
 
+### 发送邮件效果
 
 ```python
-frim loguru import logger
-def f(ansi_str):
-
-
+url = f'http://43.142.41.210:8000/sendmail'
+data = {
+    'to': '<your mail address>',
+    'title': 'test',
+    'contents': 'Hello world!'
+}
+requests.post(url, json=data)
 ```
