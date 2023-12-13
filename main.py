@@ -16,7 +16,7 @@ bucket = os.getenv('BUCKET')
 
 app = FastAPI()   
 
-@app.post('/ansi2img')
+@app.post('/v1/ansi2img')
 def ansi2img(ansi_string: str):
     conv = Ansi2HTMLConverter(dark_bg=False) 
     html = conv.convert(ansi_string)
@@ -46,7 +46,7 @@ class Mail(BaseModel):
     markdown: bool = True
     contents: str
 
-@app.post('/sendmail')
+@app.post('/v1/sendmail')
 def sendmail(mail: Mail):
     yag = yagmail.SMTP(
         email_address, 
