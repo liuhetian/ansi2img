@@ -23,7 +23,7 @@ from loguru import logger
 import requests
 mail_address = '<your mail address>'
 def send_exception(ansi_str: str):
-    url = 'http://liuhetian.work'
+    url = 'http://api.liuhetian.work/v1'
     img_path = requests.post(f'{url}/ansi2img?ansi_string={ansi_str}').json()
     data = {'to': mail_address, 'title': 'test', 'contents': f'![]({img_path})'}
     requests.post(f'{url}/sendmail', json=data)
@@ -91,14 +91,14 @@ a = '''
  \x1b[31m \x1b[1mZeroDivisionError \x1b[0m: \x1b[1m division by zero \x1b[0m
 '''
 
-url = f'http://liuhetian.work/ansi2img?ansi_string={a}'
+url = f'http://api.liuhetian.work/v1/ansi2img?ansi_string={a}'
 requests.post(url).json()
 ```
 
 ### 发送邮件效果
 
 ```python
-url = f'http://liuhetian.work/sendmail'
+url = f'http://api.liuhetian.work/v1/sendmail'
 data = {
     'to': '<your mail address>',
     'title': 'test',
