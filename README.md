@@ -60,7 +60,7 @@ pip install ansi2html imgkit boto3 fastapi uvicorn python-dotenv yagmail markdow
 
 git clone git@github.com:liuhetian/ansi2img.git
 vi .secrets  # 写密码
-uvicorn main:app --reload --host 0.0.0.0
+uvicorn main:app --reload --host 0.0.0.0 --port 80
 ```
 
 ### 生成图像效果
