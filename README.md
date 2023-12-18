@@ -90,8 +90,8 @@ a = '''
  \x1b[31m \x1b[1mZeroDivisionError \x1b[0m: \x1b[1m division by zero \x1b[0m
 '''
 
-url = f'http://api.liuhetian.work/v1/ansi2img?ansi_string={a}'
-requests.post(url).json()
+url = f'http://api.liuhetian.work/v1/ansi2img'
+requests.post(url, json={'ansi_string': a}).json()
 ```
 
 ### 发送邮件效果
