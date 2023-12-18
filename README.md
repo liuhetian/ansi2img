@@ -24,9 +24,8 @@ import requests
 mail_address = '<your mail address>'
 def send_exception(ansi_str: str):
     url = 'http://api.liuhetian.work/v1'
-    img_path = requests.post(f'{url}/ansi2img?ansi_string={ansi_str}').json()
-    data = {'to': mail_address, 'title': 'test', 'contents': f'![]({img_path})'}
-    requests.post(f'{url}/sendmail', json=data)
+    img_path = requests.post(f'{url}/ansi2img', json={'ansi_string': ansi_str}).json()
+    requests.post(f'{url}/sendmail', json={'to': mail_address, 'title': 'test', 'contents': f'![]({img_path})'})
 logger.add(send_exception, colorize=True)
 
 
