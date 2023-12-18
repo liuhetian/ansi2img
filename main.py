@@ -5,6 +5,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 from io import BytesIO
 from dotenv import load_dotenv
+from pydantic import BaseModel
 
 import yagmail
 
@@ -38,7 +39,7 @@ def ansi2img(ansi_string: Ansi):
 
 
 import markdown
-from pydantic import BaseModel
+
 
 email_address = os.getenv('EMAIL_ADDRESS')
 email_password = os.getenv('EMAIL_PASSWORD')
