@@ -16,10 +16,13 @@ bucket = os.getenv('BUCKET')
 
 app = FastAPI()   
 
+class Ansi(BaseModel):
+    ansi_string: str
+    
 @app.post('/v1/ansi2img')
-def ansi2img(ansi_string: str):
+def ansi2img(ansi_string: Ansi):
     conv = Ansi2HTMLConverter(dark_bg=False) 
-    html = conv.convert(ansi_string)
+    html = conv.convert(ansi_string.ansi_string)
     filename = datetime.now(ZoneInfo("Asia/Shanghai")).strftime('%Y-%m-%d_%H:%M:%S.png')
     image_bytes = imgkit.from_string(html, False, options={'format': 'png', 'encoding': 'utf-8', "quality": 100})
     fixed_image_bytes = image_bytes[image_bytes.find(b'\x89PNG\r\n'):]
