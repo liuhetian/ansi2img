@@ -9,7 +9,7 @@ from pydantic import BaseModel
 
 import yagmail
 
-load_dotenv(dotenv_path='.secrets')
+load_dotenv()
 access_key = os.getenv('ACCESS_KEY')
 secret_key = os.getenv('SECRET_KEY')
 endpoint = os.getenv('ENDPOINT')
