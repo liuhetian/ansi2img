@@ -55,18 +55,22 @@ class Mail(BaseModel):
 
 @app.post('/v1/sendmail')
 def sendmail(mail: Mail):
-    yag = yagmail.SMTP(
-        os.getenv('EMAIL_ADDRESS'), 
-        os.getenv('EMAIL_PASSWORD'), 
-        host='smtp.qq.com', 
-        timeout=30
-    )
-    if mail.markdown:
-        mail.contents = markdown.markdown(mail.contents)
-    return yag.send(
-        to=mail.to,
-        subject=mail.title,
-        contents=mail.contents
-    )
+    try:
+        yag = yagmail.SMTP(
+            os.getenv('EMAIL_ADDRESS'), 
+            os.getenv('EMAIL_PASSWORD'), 
+            host='smtp.qq.com', 
+            timeout=30
+        )
+        if mail.markdown:
+            mail.contents = markdown.markdown(mail.contents)
+        return yag.send(
+            to=mail.to,
+            subject=mail.title,
+            contents=mail.contents
+        )
+    except:
+        return '发送失败'
+
 
 
