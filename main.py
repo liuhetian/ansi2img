@@ -9,14 +9,12 @@ from io import BytesIO
 from dotenv import load_dotenv
 from pydantic import BaseModel
 
-
 import yagmail
 
-
+load_dotenv()
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
 
 class Ansi(BaseModel):
     ansi_string: str
@@ -29,27 +27,25 @@ def ansi2img(ansi_string: Ansi):
     filename = datetime.now(ZoneInfo("Asia/Shanghai")).strftime('%Y-%m-%d_%H:%M:%S.png')
 
     if ansi_string.to_boto:
+        endpoint = os.getenv('ENDPOINT')
+        bucket = os.getenv('BUCKET')
         image_bytes = imgkit.from_string(html, False, options={'format': 'png', 'encoding': 'utf-8', "quality": 100})
         fixed_image_bytes = image_bytes[image_bytes.find(b'\x89PNG\r\n'):]
         buffer = BytesIO(fixed_image_bytes)
         s3_resource = boto3.resource(
             "s3",
-            aws_access_key_id=access_key,
-            aws_secret_access_key=secret_key,
+            aws_access_key_id=os.getenv('ACCESS_KEY'),
+            aws_secret_access_key=os.getenv('SECRET_KEY'),
             endpoint_url=endpoint
         )
         s3_resource.Object(bucket, filename).put(Body=buffer.getvalue())
         return f'{endpoint}/{bucket}/{filename}'
     else:
         imgkit.from_string(html, f'static/{filename}', options={'format': 'png', 'encoding': 'utf-8', "quality": 100})
-        return f'static/{filename}'
+        return f'http://api.liuhetian.work/static/{filename}'
 
 
 import markdown
-
-
-email_address = os.getenv('EMAIL_ADDRESS')
-email_password = os.getenv('EMAIL_PASSWORD')
 
 class Mail(BaseModel):
     to: str
@@ -60,8 +56,8 @@ class Mail(BaseModel):
 @app.post('/v1/sendmail')
 def sendmail(mail: Mail):
     yag = yagmail.SMTP(
-        email_address, 
-        email_password, 
+        os.getenv('EMAIL_ADDRESS'), 
+        os.getenv('EMAIL_PASSWORD'), 
         host='smtp.qq.com', 
         timeout=30
     )
