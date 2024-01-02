@@ -1,11 +1,14 @@
 import os, imgkit, boto3
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+
 from ansi2html import Ansi2HTMLConverter
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from io import BytesIO
 from dotenv import load_dotenv
 from pydantic import BaseModel
+
 
 import yagmail
 
@@ -16,6 +19,9 @@ endpoint = os.getenv('ENDPOINT')
 bucket = os.getenv('BUCKET')
 
 app = FastAPI()   
+# 将 `./static` 目录挂载为静态文件服务，所有存储在这个目录下的文件都可以通过 '/static' 路径访问
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 class Ansi(BaseModel):
     ansi_string: str
