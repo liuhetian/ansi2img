@@ -1,4 +1,20 @@
-# ansi2img
+# Features
+
+The purpose of the project is to capture exceptions that occur within Python scripts and to notify oneself in a timely manner.
+
+Common methods of exception logging each have their drawbacks:
+
+Logging exceptions to a file can lack immediacy.
+Sending them directly to one's phone can be insufficiently detailed or unreadable.
+Therefore, this project involves capturing exceptions as screenshots and then sending them to an email address, ensuring that the exception messages are readable while also guaranteeing prompt receipt of the message.
+
+Additionally, the processes of taking screenshots and sending emails are separated into two independent interfaces that can be used individually.
+
+Implementation pathway:
+
+exception -> ansi -> html -> img -> mail
+
+Capture the exception, convert it into an image, and finally send it to oneself via email.
 
 项目的目的是捕获python脚本中出现的异常并及时通知自己，
 
@@ -15,6 +31,8 @@
 exception -> ansi -> html -> img -> mail
 
 捕获异常，然后转为图片，最后通过邮件发送给自己
+
+# Usage
 
 ![截图效果](result.png)
 
@@ -39,18 +57,18 @@ if __name__ == '__main__':
     main()
 ```
 
-## 功能
+# Installation
 
-有两个独立的功能：
+I have provided a server, and the service can be used directly without the need to install my code. However, if you want to use loguru, you still need to 
 
-功能1. ansi2img
-把报错转为图像地址，可以继续发送给钉钉(微信 QQ没试过)
+我提供了服务器，服务可以直接使用，无需安装我的代码，但如果要使用loguru仍然需要`pip install loguru`
 
-功能2. 发送邮件
+```python
+pip install loguru.
+```
 
-
-## 部署
-需要实例存储，有点麻烦
+If you want to deploy on your own server, you will need:
+如果想部署在自己的服务器需要：
 
 ```bash
 sudo apt-get update
@@ -61,6 +79,16 @@ git clone git@github.com:liuhetian/ansi2img.git
 vi .secrets  # 写密码
 uvicorn main:app --reload --host 0.0.0.0 --port 80
 ```
+
+## 功能
+
+有两个独立的功能：
+
+功能1. ansi2img
+把报错转为图像地址，可以继续发送给钉钉(微信 QQ没试过)
+
+功能2. 发送邮件
+
 
 ### 生成图像效果
 
