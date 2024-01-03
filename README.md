@@ -136,17 +136,5 @@ requests.post(url, json=data)
 
 ### todo
 
-- [ ] 图片储存到本地并直接用fastapi提供静态文件服务
-
-```python
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-
-app = FastAPI()
-
-# 将 `./static` 目录挂载为静态文件服务，所有存储在这个目录下的文件都可以通过 '/static' 路径访问
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-```
-
-- [ ] 增加容量报警
+- [x] 图片储存到本地并直接用fastapi提供静态文件服务
+- [ ] 增加容量报警/定期清理
