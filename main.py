@@ -51,6 +51,30 @@ def ansi2img(ansi_string: Ansi):
         imgkit.from_string(html, f'static/{filename}', options={'format': 'png', 'encoding': 'utf-8', "quality": 100})
         return f'http://api.liuhetian.work/static/{filename}'
 
+@app.post('/v1/html2img')
+def ansi2img(html_string: Ansi):
+
+    html = html_string.ansi_string
+    filename = datetime.now(ZoneInfo("Asia/Shanghai")).strftime('%Y-%m-%d_%H:%M:%S.png')
+
+    if html_string.to_boto:  # 可以使用对象储存
+        endpoint = os.getenv('ENDPOINT')
+        bucket = os.getenv('BUCKET')
+        image_bytes = imgkit.from_string(html, False, options={'format': 'png', 'encoding': 'utf-8', "quality": 100})
+        fixed_image_bytes = image_bytes[image_bytes.find(b'\x89PNG\r\n'):]
+        buffer = BytesIO(fixed_image_bytes)
+        s3_resource = boto3.resource(
+            "s3",
+            aws_access_key_id=os.getenv('ACCESS_KEY'),
+            aws_secret_access_key=os.getenv('SECRET_KEY'),
+            endpoint_url=endpoint
+        )
+        s3_resource.Object(bucket, filename).put(Body=buffer.getvalue())
+        return f'{endpoint}/{bucket}/{filename}'
+    else:
+        imgkit.from_string(html, f'static/{filename}', options={'format': 'png', 'encoding': 'utf-8', "quality": 100})
+        return f'http://api.liuhetian.work/static/{filename}'
+
 
 import markdown
 
